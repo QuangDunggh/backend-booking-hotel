@@ -1,10 +1,14 @@
 package com.rim.myproject.response;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
+import com.rim.myproject.model.Room;
+
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -39,5 +43,8 @@ public class RoomResponse {
 		this.photo = photoBytes != null ? Base64.encodeBase64String(photoBytes) : null;
 		this.bookings = bookings;
 	}
+
+	
+
 
 }

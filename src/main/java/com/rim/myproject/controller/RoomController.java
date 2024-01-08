@@ -3,9 +3,11 @@ package com.rim.myproject.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +31,16 @@ public class RoomController {
 	public ResponseEntity<RoomResponse> addNewRoom(@RequestParam MultipartFile photo, @RequestParam String roomType,
 			@RequestParam BigDecimal roomPrice) throws SQLException, IOException {
 		return ResponseEntity.ok(roomService.addNewRoom(photo, roomType, roomPrice));
+	}
+	
+	@GetMapping("/room-types")
+	public List<String> getRoomType() {
+		return roomService.getAllRoomTypes();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<RoomResponse>> getAllRoom() {
+		return ResponseEntity.ok(roomService.getAllRoom());
 	}
 
 }
