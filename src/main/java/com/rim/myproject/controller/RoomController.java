@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rim.myproject.model.BookedRoom;
+import com.rim.myproject.repository.IBookedRoomRepository;
 import com.rim.myproject.response.RoomResponse;
+import com.rim.myproject.service.IBookedRoomService;
 import com.rim.myproject.service.IRoomService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 public class RoomController {
 	
 	private final IRoomService roomService;
+	
+	private final IBookedRoomService bookedRoomService;
 
 	@PostMapping
 	public ResponseEntity<RoomResponse> addNewRoom(@RequestParam MultipartFile photo, @RequestParam String roomType,
@@ -42,5 +47,6 @@ public class RoomController {
 	public ResponseEntity<List<RoomResponse>> getAllRoom() {
 		return ResponseEntity.ok(roomService.getAllRoom());
 	}
+	
 
 }

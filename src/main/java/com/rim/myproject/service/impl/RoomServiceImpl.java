@@ -59,30 +59,25 @@ public class RoomServiceImpl implements IRoomService {
 			roomResponse.setBooked(room.isBooked());
 			roomResponse.setRoomPrice(room.getRoomPrice());
 			roomResponse.setRoomType(room.getRoomType());
-			
-//			byte[] photo = room.getPhoto().getBytes(1, (int)room.getPhoto().length());
-			
-//			roomResponse.setPhoto(Base64.encodeBase64String(photo));
+			roomResponse.setPhoto(getPhotoById(room.getId()));
 			roomResponses.add(roomResponse);
 		});
-		
+
 		return roomResponses;
 	}
 
 	@Override
-	public byte[] getPhotoById(Long roomId) {
-		Room room = roomRepository.findById(roomId).orElseThrow(() ->  new NotFoundResourceException("Can not find by id "+ roomId));
-		return null;
+	public String getPhotoById(Long roomId) {
+		Room room = roomRepository.findById(roomId)
+				.orElseThrow(() -> new NotFoundResourceException("Can not find by id " + roomId));	
+		Blob photo = room.getPhoto();
+		try {
+			byte[] photoByte = photo.getBytes(1, (int) photo.length());
+			return Base64.encodeBase64String(photoByte);
+		} catch (SQLException e) {
+			throw new NotFoundResourceException("Can not convert the photo");
+		}
+		
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
