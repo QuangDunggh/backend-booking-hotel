@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
+import com.rim.myproject.exception.CanNotConvertImageException;
 import com.rim.myproject.model.Room;
 
 import lombok.Builder;
@@ -44,7 +45,22 @@ public class RoomResponse {
 		this.bookings = bookings;
 	}
 
-	
+	public static RoomResponse from(Room room) {
+		RoomResponse roomResponse = new RoomResponse();
+		roomResponse.setBooked(room.isBooked());
+		roomResponse.setId(room.getId());
+		roomResponse.setRoomPrice(room.getRoomPrice());
+		roomResponse.setRoomType(room.getRoomType());
+		try {
+			byte[] photoByte = room.getPhoto().getBytes(1,(int) room.getPhoto().length());
+			roomResponse.setPhoto(Base64.encodeBase64String(photoByte));
+		} catch (SQLException e) {
+			throw new CanNotConvertImageException("can not convert exception");
+		}
+		
+		
+		return roomResponse;
+	}
 
 
 }

@@ -20,4 +20,15 @@ public class GlobleHandleException {
 		errors.put("errorMessage", ex.getMessage());
 		return errors;
 	}
+	
+	@ExceptionHandler
+	@ResponseBody
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public Map<String,String> handleCanNotConvertImageException(CanNotConvertImageException ex) {
+		Map<String,String> errors = new HashMap<> ();
+		errors.put("errorMessage", ex.getMessage());
+		return errors;
+	}
 }
+
+

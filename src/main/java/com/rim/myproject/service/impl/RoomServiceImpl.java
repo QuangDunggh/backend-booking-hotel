@@ -80,4 +80,10 @@ public class RoomServiceImpl implements IRoomService {
 		
 	}
 
+	@Override
+	public RoomResponse getRoomById(Long roomId) {
+		Room room = roomRepository.findById(roomId).orElseThrow(() -> new NotFoundResourceException("Can not find room by id: " + roomId));
+		return RoomResponse.from(room);
+	}
+
 }

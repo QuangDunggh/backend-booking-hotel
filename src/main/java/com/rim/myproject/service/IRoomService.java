@@ -18,5 +18,7 @@ public interface IRoomService {
 	List<RoomResponse> getAllRoom();
 	
 	String getPhotoById(Long roomId);
+	
+	RoomResponse getRoomById(Long roomId);
 
 }
