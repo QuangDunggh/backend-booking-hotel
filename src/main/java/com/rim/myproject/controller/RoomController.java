@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/rooms")
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin("http://localhost:5173/")
 public class RoomController {
 	
 	private final IRoomService roomService;
