@@ -21,4 +21,6 @@ public interface IRoomService {
 	
 	RoomResponse getRoomById(Long roomId);
 
+	String deleteRoomById(Long id);
+
 }
