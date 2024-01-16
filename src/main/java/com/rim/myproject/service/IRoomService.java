@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rim.myproject.request.RoomRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rim.myproject.response.RoomResponse;
@@ -22,5 +23,7 @@ public interface IRoomService {
 	RoomResponse getRoomById(Long roomId);
 
 	String deleteRoomById(Long id);
+
+	RoomResponse updateRoom(Long roomId, RoomRequest roomRequest);
 
 }

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rim.myproject.request.RoomRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +47,20 @@ public class RoomController {
 	@GetMapping("/{roomId}")
 	public ResponseEntity<RoomResponse> getRoomById(@PathVariable("roomId") Long roomId) {
 		return ResponseEntity.ok(roomService.getRoomById(roomId));
+	}
+
+	@PutMapping("/{roomId}")
+	public ResponseEntity<RoomResponse> updateRoom(@PathVariable("roomId") Long roomId,
+												   @RequestParam MultipartFile photo,
+												   @RequestParam String roomType,
+												   @RequestParam BigDecimal roomPrice) {
+		RoomRequest roomRequest = RoomRequest.builder()
+				.roomId(roomId)
+				.roomPrice(roomPrice)
+				.roomType(roomType)
+				.photo(photo)
+				.build();
+		return ResponseEntity.ok(roomService.updateRoom(roomId, roomRequest));
 	}
 
 	@DeleteMapping("/{roomId}")

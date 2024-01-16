@@ -6,9 +6,11 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import com.rim.myproject.request.RoomRequest;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,7 +53,6 @@ public class RoomServiceImpl implements IRoomService {
     public List<RoomResponse> getAllRoom() {
         List<Room> rooms = roomRepository.findAll();
         List<RoomResponse> roomResponses = new ArrayList<>();
-
         rooms.forEach(room -> {
             RoomResponse roomResponse = new RoomResponse();
             roomResponse.setId(room.getId());
@@ -90,6 +91,16 @@ public class RoomServiceImpl implements IRoomService {
         roomRepository.findById(id).orElseThrow(() -> new NotFoundResourceException("can not find room by id " + id));
         roomRepository.deleteById(id);
         return "Delete room successful";
+    }
+
+    @Override
+    public RoomResponse updateRoom(Long roomId, RoomRequest roomRequest) {
+        Optional<Room> room = roomRepository.findById(roomId);
+        if (room.isPresent()) {
+            Room updateRoom = RoomRequest.convertToRoom(roomRequest);
+            return RoomResponse.from(roomRepository.save(updateRoom));
+        }
+        throw new NotFoundResourceException("Can not find room by id: " + roomId);
     }
 
 }
